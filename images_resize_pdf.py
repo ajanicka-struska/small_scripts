@@ -2,6 +2,7 @@ import os
 from PIL import Image
 from fpdf import FPDF
 
+
 def get_path():
     return (input("Write path to folder here:\n")).replace("\"", "") + "\\"
 
