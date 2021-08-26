@@ -15,7 +15,8 @@ def create_newfolder(path):
 
 
 def check_files(f):
-    return [i for i in os.listdir(f) if os.path.isfile(os.path.join(f, i))]
+    files = [i for i in os.listdir(f) if os.path.isfile(os.path.join(f, i))]
+    return [j for j in files if j[-4:] == ".png"]
 
 
 if __name__ == "__main__":
