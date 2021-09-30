@@ -9,12 +9,12 @@ def get_path():
 
 def create_newfolder(p):
     try:
-        os.mkdir(p + "new")
+        os.mkdir(f"{p}new")
         print("New folder done!")
-        return p + "new"
+        return f"{p}new"
     except FileExistsError:
         print("Path already exists!")
-        return p + "new"
+        return f"{p}new"
 
 
 def read_files(old_path):
@@ -30,39 +30,39 @@ def crop_dimensions():
     return left, upper, right, lower
 
 
+def to_pdf(path_to):
+    pdf = FPDF("P", "mm", "A4")
+    list_images = read_files(path_to)
+    for elem in list_images:
+        pdf.add_page()
+        pdf.image(path_to + elem, 0, 0, 210, 297)
+    pdf.output(f"{path_to}new_book.pdf", "F")
+
+
 if __name__ == "__main__":
     path = get_path()
     create_newfolder(path)
-    path_to_new = path + "new\\"
+    path_to_new = f"{path}new\\"
     list_of_images = read_files(path)
     dimensions = tuple(crop_dimensions())
 
     for count, value in enumerate(list_of_images):
-        image = Image.open(path + "\\" + value)
+        image = Image.open(f"{path}\\{value}")
         image_cropped = image.crop(dimensions)
         if count < 10:
-            image_cropped.save(path_to_new + "\\000" + str(count + 1) + ".png", "PNG")
-            print("Image " + str(count + 1) + " done")
+            image_cropped.save(f"{path_to_new}\\000{count + 1}.png", "PNG")
+            print(f"Image{count + 1} done")
         elif 10 <= count <= 99:
-            image_cropped.save(path_to_new + "\\00" + str(count + 1) + ".png", "PNG")
-            print("Image " + str(count + 1) + " done")
+            image_cropped.save(f"{path_to_new}\\00{count + 1}.png", "PNG")
+            print(f"Image{count + 1} done")
         elif 100 <= count <= 999:
-            print("Image " + str(count + 1) + " done")
-            image_cropped.save(path_to_new + "\\0" + str(count + 1) + ".png", "PNG")
+            image_cropped.save(f"{path_to_new}\\0{count + 1}.png", "PNG")
+            print(f"Image{count + 1} done")
         else:
-            image_cropped.save(path_to_new + "\\" + str(count + 1) + ".png", "PNG")
-            print("Image " + str(count + 1) + " done")
+            image_cropped.save(f"{path_to_new}\\{count + 1}.png", "PNG")
+            print(f"Image{count + 1} done")
 
-    pdf = FPDF("P", "mm", "A4")
-
-    new_list_of_images = read_files(path_to_new)
-
-    for elem in new_list_of_images:
-        pdf.add_page()
-        pdf.image(path_to_new + elem, 0, 0, 210, 297)
-
-    pdf.output(path_to_new + "new_book.pdf", "F")
-
+    to_pdf(path_to_new)
     print("All done!")
 
 
