@@ -8,6 +8,8 @@ in which I'm involved in.
 This project now contains 2 already automated tasks and 2 still in development.
 
 Finished tasks (but still in need of some polishing):
+
 https://github.com/ajanicka-struska/small_scripts_for_job/tree/main/Creating_screens
+
 https://github.com/ajanicka-struska/small_scripts_for_job/tree/main/Manipulating_images
 
